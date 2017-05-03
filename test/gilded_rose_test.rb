@@ -169,7 +169,7 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_at_zero_quality
-    
+    skip
     item = update_quality_for_item_with(5, 0, 'Conjured Mana Cake')
     assert_equal 0, item.quality
   end
