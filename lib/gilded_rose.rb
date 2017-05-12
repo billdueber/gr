@@ -1,12 +1,17 @@
-require 'gilded_rose/item'
 
 
-def update_quality(items)
-  items.each do |item|
-    update_item_quality(item)
+class GildedRose
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
   end
+
+  def tick # one day passes
+
+  end
+
 end
 
-def update_item_quality(item)
-
-end

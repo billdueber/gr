@@ -1,10 +1,10 @@
+
+old_verbose = $VERBOSE
+$VERBOSE = nil
+require 'minitest/spec'
 require "minitest/autorun"
 require 'minitest/pride'
-
-
-#require "minitest/reporters"
-#MiniTest::Reporters.use! MiniTest::Reporters::SpecReporter.new
-
+$VERBOSE = old_verbose
 require_relative '../lib/gilded_rose'
 
 
