@@ -10,7 +10,8 @@ class GildedRose
   end
 
   def tick # one day passes
-
+    @days_remaining -= 1
+    @quality -= 1
   end
 
 end
