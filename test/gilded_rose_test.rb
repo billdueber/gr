@@ -12,6 +12,6 @@ describe "tick test" do
 
   it "has a sell_in date which decreases" do
     @item.tick
-    @item.sell_in.must_equal 6
+    @item.days_remaining.must_equal 6
   end
 end

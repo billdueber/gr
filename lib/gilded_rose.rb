@@ -1,12 +1,12 @@
 
 
 class GildedRose
-  attr_accessor :name, :sell_in, :quality
+  attr_accessor :name, :days_remaining, :quality
 
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
+  def initialize(name, days_remaining, quality)
+    @name           = name
+    @days_remaining = days_remaining
+    @quality        = quality
   end
 
   def tick # one day passes
