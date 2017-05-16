@@ -1,5 +1,17 @@
 require_relative 'test_helper.rb'
+
 class GildedRoseTest < MiniTest::Test
+  def test_normal_item_initialize_min_qaulity
+    item = GildedRose.for('normal', GildedRose::MIN_QUALITY-1, 0)
+    assert_equal GildedRose::MIN_QUALITY, item.quality
+    assert_equal 0, item.days_remaining
+  end
+
+  def test_normal_item_initialize_max_qaulity
+    item = GildedRose.for('normal', GildedRose::MAX_QUALITY+1, 0)
+    assert_equal GildedRose::MAX_QUALITY, item.quality
+    assert_equal 0, item.days_remaining
+  end
 
   def test_normal_item_before_sell_date
     item = GildedRose.for('normal', 10, 5)
@@ -80,23 +92,23 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_sulfuras_before_sell_date
-    item = GildedRose.for('Sulfuras, Hand of Ragnaros', 80, 15)
+    item = GildedRose.for('Sulfuras, Hand of Ragnaros', 50, 15)
     item.tick
-    assert_equal 80, item.quality
+    assert_equal 50, item.quality
     assert_equal 14, item.days_remaining
   end
 
   def test_sulfuras_on_sell_date
-    item = GildedRose.for('Sulfuras, Hand of Ragnaros', 80, 0)
+    item = GildedRose.for('Sulfuras, Hand of Ragnaros', 50, 0)
     item.tick
-    assert_equal 80, item.quality
+    assert_equal 50, item.quality
     assert_equal -1, item.days_remaining
   end
 
   def test_sulfuras_after_sell_date
-    item = GildedRose.for('Sulfuras, Hand of Ragnaros', 80, -10)
+    item = GildedRose.for('Sulfuras, Hand of Ragnaros', 50, -10)
     item.tick
-    assert_equal 80, item.quality
+    assert_equal 50, item.quality
     assert_equal -11, item.days_remaining
   end
 
@@ -220,4 +232,19 @@ class GildedRoseTest < MiniTest::Test
     assert_equal -11, item.days_remaining
   end
 
+  def test_stress_test_quality_of_all_items
+    names = GildedRose::SPECIALIZED_CLASSES.keys.push('default')
+    quality = GildedRose::MIN_QUALITY + ((GildedRose::MAX_QUALITY - GildedRose::MIN_QUALITY) / 2).round
+    quality += 1 if (quality % 2) == 0
+    days_remaining = (GildedRose::MAX_QUALITY - GildedRose::MIN_QUALITY) * 2
+    names.each do |name|
+      item = GildedRose.for(name, quality, days_remaining)
+      days_remaining.times do |i|
+        item.tick
+        assert(item.quality >= GildedRose::MIN_QUALITY, name.to_s + " quality of " + item.quality.to_s + " < " + GildedRose::MIN_QUALITY.to_s )
+        assert(item.quality <= GildedRose::MAX_QUALITY, name.to_s + " quality of " + item.quality.to_s + " < " + GildedRose::MAX_QUALITY.to_s )
+        assert_equal (days_remaining - (i+1)), item.days_remaining, name.to_s + " days remaining"
+      end
+    end
+  end
 end

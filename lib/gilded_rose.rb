@@ -1,10 +1,14 @@
 module GildedRose
+  MIN_QUALITY = 0
+  MAX_QUALITY = 50
 
   class Item
     attr_reader :quality, :days_remaining
 
     def initialize(quality, days_remaining)
       @quality = quality
+      @quality = 0 if @quality < 0
+      @quality = 50 if @quality > 50
       @days_remaining = days_remaining
     end
 
@@ -52,6 +56,7 @@ module GildedRose
 
       @quality -= 2
       @quality -= 2 if @days_remaining <= 0
+      @quality = 0 if @quality < 0
     end
   end
 
