@@ -36,9 +36,9 @@ class GildedRose
         end
       end
     end
-    if name != 'Sulfuras, Hand of Ragnaros'
+    # if name != 'Sulfuras, Hand of Ragnaros'
       @days_remaining -= 1
-    end
+    # end
     if @days_remaining < 0
       if name != "Aged Brie"
         if name != 'Backstage passes to a TAFKAL80ETC concert'

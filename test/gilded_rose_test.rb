@@ -95,21 +95,21 @@ class GildedRoseTest < MiniTest::Test
     item = GildedRose.new('Sulfuras, Hand of Ragnaros', 50, 15)
     item.tick
     assert_equal 50, item.quality
-    assert_equal 15, item.days_remaining
+    assert_equal 14, item.days_remaining
   end
 
   def test_sulfuras_on_sell_date
     item = GildedRose.new('Sulfuras, Hand of Ragnaros', 50, 0)
     item.tick
     assert_equal 50, item.quality
-    assert_equal 0, item.days_remaining
+    assert_equal -1, item.days_remaining
   end
 
   def test_sulfuras_after_sell_date
     item = GildedRose.new('Sulfuras, Hand of Ragnaros', 50, -10)
     item.tick
     assert_equal 50, item.quality
-    assert_equal -10, item.days_remaining
+    assert_equal -11, item.days_remaining
   end
 
   def test_backstage_pass_long_before_sell_date
