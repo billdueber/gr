@@ -11,22 +11,25 @@ class GildedRose
 
   def tick # one day passes
     @days_remaining -= 1
+    if @name == 'aged brie'  
+      increase_quality
+    else
+      decrease_quality
+    end
+  end
+
+  def decrease_quality
     @quality -= 1
     if @quality < 0  
       @quality = 0
     end
   end
 
-end
-
-class AgedBrie < GildedRose
-  def tick
-    @days_remaining -= 1
+  def increase_quality
     @quality += 1
     if @quality > 50
       @quality = 50
     end
   end
+
 end
-
-

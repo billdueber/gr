@@ -23,7 +23,7 @@ end
 
 describe "aged brie test" do
   before do
-    @item = AgedBrie.new("myitem", 7, 10)
+    @item = GildedRose.new("aged brie", 7, 10)
   end
 
   it "has a quality which increases" do
