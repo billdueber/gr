@@ -26,7 +26,6 @@ class AgedBrie < GildedRose
     if @quality > 50
       @quality = 50
     end
-
   end
 end
 

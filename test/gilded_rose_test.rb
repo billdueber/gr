@@ -17,7 +17,7 @@ describe "tick test" do
   
   it "never has a negative quality" do
     100.times { @item.tick }
-    assert(@item.quality >= 0)
+    @item.quality.must_be :>=, 0
   end
 end
 
@@ -38,6 +38,6 @@ describe "aged brie test" do
   
   it "never has a quality > 50" do
     100.times { @item.tick }
-    assert(@item.quality <= 50)
+    @item.quality.must_be :<=, 50
   end
 end
