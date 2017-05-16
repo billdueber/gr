@@ -179,7 +179,6 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_before_sell_date
-    skip
     item = GildedRose.for('Conjured Mana Cake', 10, 5)
     item.tick
     assert_equal 8, item.quality
@@ -187,7 +186,6 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_at_zero_quality
-    skip
     item = GildedRose.for('Conjured Mana Cake', 0, 5)
     item.tick
     assert_equal 0, item.quality
@@ -195,7 +193,6 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_on_sell_date
-    skip
     item = GildedRose.for('Conjured Mana Cake', 10, 0)
     item.tick
     assert_equal 6, item.quality
@@ -203,7 +200,6 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_on_sell_date_at_zero_quality
-    skip
     item = GildedRose.for('Conjured Mana Cake', 0, 0)
     item.tick
     assert_equal 0, item.quality
@@ -211,7 +207,6 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_after_sell_date
-    skip
     item = GildedRose.for('Conjured Mana Cake', 10, -10)
     item.tick
     assert_equal 6, item.quality
@@ -219,7 +214,6 @@ class GildedRoseTest < MiniTest::Test
   end
 
   def test_conjured_item_after_sell_date_at_zero_quality
-    skip
     item = GildedRose.for('Conjured Mana Cake', 0, -10)
     item.tick
     assert_equal 0, item.quality
