@@ -25,15 +25,11 @@ class GildedRose
   end
 
   def increase_quality
-    unless @quality == 50
-      @quality += 1
-    end
+    @quality += 1 unless @quality == 50
   end
 
   def decrease_quality
-    unless @quality == 0
-      @quality -= 1
-    end
+    @quality -= 1 unless @quality == 0
   end
 
 end
