@@ -1,57 +1,63 @@
-class GildedRose
+module GildedRose
+  class Item
+    attr_reader :quality, :days_remaining
 
-  attr_reader :name, :quality, :days_remaining
-  
-  def initialize(name, quality, days_remaining)
-    @name =name
-    @quality = quality
-    @days_remaining = days_remaining
+    def initialize(quality, days_remaining)
+      @quality = quality
+      @days_remaining = days_remaining
+    end
+
+    def tick
+    end
   end
 
+  class Normal < Item
+    def tick
+      @quality -= 1
+      @quality -= 1 if @days_remaining <= 0
 
-  def tick
-    if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
-      if @quality > 0
-        if name != 'Sulfuras, Hand of Ragnaros'
-          @quality -= 1
-        end
-      end
-    else
-      if @quality < 50
-        @quality += 1
-        if name == 'Backstage passes to a TAFKAL80ETC concert'
-          if @days_remaining < 11
-            if @quality < 50
-              @quality += 1
-            end
-          end
-          if @days_remaining < 6
-            if @quality < 50
-              @quality += 1
-            end
-          end
-        end
-      end
+      @quality = 0 if @quality <= 0
     end
-    if name != 'Sulfuras, Hand of Ragnaros'
-      @days_remaining -= 1
+  end
+
+  class AgedBrie < Item
+    def tick
+      @quality += 1
+      @quality += 1 if @days_remaining <= 0
+
+      @quality = 50 if @quality >= 50
     end
-    if @days_remaining < 0
-      if name != "Aged Brie"
-        if name != 'Backstage passes to a TAFKAL80ETC concert'
-          if @quality > 0
-            if name != 'Sulfuras, Hand of Ragnaros'
-              @quality -= 1
-            end
-          end
-        else
-          @quality = @quality - @quality
-        end
-      else
-        if @quality < 50
-          @quality += 1
-        end
-      end
+  end
+
+  class Backstage < Item
+    def tick
+      @quality  = 0 if @days_remaining <= 0
+      @quality += 1 if @days_remaining >= 11
+      @quality += 2 if @days_remaining <= 10 && @days_remaining >= 6
+      @quality += 3 if @days_remaining <= 5  && @days_remaining >= 1
+
+      @quality = 50 if @quality >= 50
     end
+  end
+
+  class Conjured < Item
+    def tick
+      @quality -= 2
+      @quality -= 2 if @days_remaining <= 0
+
+      @quality = 0 if @quality <= 0
+    end
+  end
+
+  DEFAULT_CLASS                                 =  Item
+  SPECIALIZED_CLASSES = {
+    'normal'                                    => Normal,
+    'Aged Brie'                                 => AgedBrie,
+    'Backstage passes to a TAFKAL80ETC concert' => Backstage,
+    'Conjured Mana Cake'                        => Conjured
+  }
+
+  def self.new(name, quality, days_remaining)
+    @item = (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).new(quality, days_remaining)
   end
 end
