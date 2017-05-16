@@ -1,13 +1,16 @@
 class GildedRose
+  MIN_QUALITY = 0
+  MAX_QUALITY = 50
 
   attr_reader :name, :quality, :days_remaining
   
   def initialize(name, quality, days_remaining)
     @name =name
     @quality = quality
+    @quality = MIN_QUALITY if @quality < MIN_QUALITY
+    @quality = MAX_QUALITY if @quality > MAX_QUALITY
     @days_remaining = days_remaining
   end
-
 
   def tick
     if name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert'
